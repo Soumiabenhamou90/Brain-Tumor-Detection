@@ -1,0 +1,8 @@
+README.md
+setup.py
+brainTumorDetection/__init__.py
+brainTumorDetection/params.py
+brainTumorDetection.egg-info/PKG-INFO
+brainTumorDetection.egg-info/SOURCES.txt
+brainTumorDetection.egg-info/dependency_links.txt
+brainTumorDetection.egg-info/top_level.txt
