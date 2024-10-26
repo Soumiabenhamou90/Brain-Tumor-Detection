@@ -1,0 +1,9 @@
+path: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset
+train: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset/train
+val: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset/test
+
+names:
+    0: glioma
+    1: meningioma
+    2: notumor
+    3: pituitary
