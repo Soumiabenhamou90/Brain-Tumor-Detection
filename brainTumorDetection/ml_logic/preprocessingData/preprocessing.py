@@ -1,5 +1,5 @@
 from brainTumorDetection.ml_logic.preprocessingData.splitData import custom_train_test_split
-dataset_BrainTumorLabeled = "raw_data/BrainTumorlabeleddataset/"
+dataset_BrainTumorLabeled = "./../raw_data/brainTumorLabeledDataset/"
 
 def make_preprocessing():
     print("start split data (preprocessing ...)")
@@ -7,4 +7,4 @@ def make_preprocessing():
     return True
 
 
-make_preprocessing()
+# make_preprocessing()
