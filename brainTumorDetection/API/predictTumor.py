@@ -22,8 +22,8 @@ app.add_middleware(
 )
 
 # Charger le modèle YOLOv8
-model = YOLO("/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
-imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
+model = YOLO("../Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
+imagePath = "../Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
 
 class PredictionResult(BaseModel):
     label: str
