@@ -10,7 +10,21 @@ import uvicorn
 import os
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+from contextlib import asynccontextmanager
+
+model = {}
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load the ML model
+    model["predict"]  = YOLO("/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
+    yield
+    # Clean up the ML models and release the resources
+    model.clear()
+
+app = FastAPI(lifespan=lifespan)
+
+
 # Configurer les origines autorisées (dans ce cas, localhost:3000)
 
 app.add_middleware(
@@ -21,9 +35,9 @@ app.add_middleware(
     allow_headers=["*"],  # Autoriser tous les en-têtes
 )
 
-# Charger le modèle YOLOv8
-model = YOLO("/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
-imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
+# # Charger le modèle YOLOv8
+# model = YOLO("/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
+# imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
 
 class PredictionResult(BaseModel):
     label: str
@@ -45,13 +59,16 @@ async def predict(file: UploadFile = File(...)):
     image_np = np.array(image)
 
     # Faire la prédiction
-    results = model(image_np)
+    results = model["predict"](image_np)
 
     # Extraire les résultats de prédiction
     predictions = []
+    classIndex = int(results[0].boxes.cls[0].item())
+    classPredict = results[0].names[classIndex]
+
     for result in results:
         predictions.append({
-            "class": result.names,
+            "class": classPredict,
             "confidence": float(result.boxes.conf[0]) if len(result.boxes.conf) > 0 else 0.0,
             "bbox": result.boxes.xyxy[0].tolist() if len(result.boxes.xyxy) > 0 else []
         })
@@ -61,7 +78,7 @@ async def predict(file: UploadFile = File(...)):
     if len(results[0].boxes.xyxy) > 0:
         x1, y1, x2, y2 = map(int, results[0].boxes.xyxy[0])
         cv2.rectangle(annotated_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-        cv2.putText(annotated_image, f"{results[0].names[0]}: {results[0].boxes.conf[0]:.2f}", (x1, y1 - 10),
+        cv2.putText(annotated_image, f"{classPredict}: {results[0].boxes.conf[0]:.2f}", (x1, y1 - 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
     # Encoder l'image annotée en base64 pour l'affichage
