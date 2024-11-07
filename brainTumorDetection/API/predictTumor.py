@@ -35,15 +35,9 @@ app.add_middleware(
     allow_headers=["*"],  # Autoriser tous les en-têtes
 )
 
-<<<<<<< HEAD
-# # Charger le modèle YOLOv8
-# model = YOLO("/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
-# imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
-=======
 # Charger le modèle YOLOv8
 model = YOLO("./brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
 imagePath = "./brainTumorDetection/API/Tr-pi_0015.jpg"
->>>>>>> f45d002d866834e8aae33f4cbdeb0130e9d8853f
 
 class PredictionResult(BaseModel):
     label: str
