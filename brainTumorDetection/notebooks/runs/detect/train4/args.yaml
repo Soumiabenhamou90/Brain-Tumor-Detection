@@ -1,7 +1,7 @@
 task: detect
 mode: train
 model: yolov8n.yaml
-data: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/braintumordetector.yaml
+data: ./Brain-Tumor-Detection/braintumordetector.yaml
 epochs: 50
 time: null
 patience: 100

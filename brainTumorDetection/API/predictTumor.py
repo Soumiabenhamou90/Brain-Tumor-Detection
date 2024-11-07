@@ -22,8 +22,8 @@ app.add_middleware(
 )
 
 # Charger le modèle YOLOv8
-model = YOLO("/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
-imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
+model = YOLO("./brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
+imagePath = "./brainTumorDetection/API/Tr-pi_0015.jpg"
 
 class PredictionResult(BaseModel):
     label: str
@@ -72,7 +72,3 @@ async def predict(file: UploadFile = File(...)):
         "predictions": predictions,
         "annotated_image": img_base64
     }
-
-# Lancer l'API avec uvicorn
-if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)

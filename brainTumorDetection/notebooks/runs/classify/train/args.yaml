@@ -1,7 +1,7 @@
 task: classify
 mode: train
 model: yolov8n-cls.pt
-data: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset
+data: ./Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset
 epochs: 10
 time: null
 patience: 100
