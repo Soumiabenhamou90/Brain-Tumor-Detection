@@ -1,6 +1,6 @@
-path: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset
-train: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset/train
-val: /Users/macbook/code/Soumiabenhamou90/Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset/test
+path: ./Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset
+train: ./Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset/train
+val: ./Brain-Tumor-Detection/raw_data/BrainTumorlabeleddataset/test
 
 names:
     0: glioma
