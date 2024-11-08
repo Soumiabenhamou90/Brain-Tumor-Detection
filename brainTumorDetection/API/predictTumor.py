@@ -17,7 +17,7 @@ model = {}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Load the ML model
-    model["predict"]  = YOLO("/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
+    model["predict"]  = YOLO("./brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
     yield
     # Clean up the ML models and release the resources
     model.clear()
@@ -29,15 +29,15 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Autoriser uniquement Next.js en développement
+    allow_origins=["*"],  # Autoriser uniquement Next.js en développement
     allow_credentials=True,
     allow_methods=["*"],  # Autoriser toutes les méthodes HTTP
     allow_headers=["*"],  # Autoriser tous les en-têtes
 )
 
 # Charger le modèle YOLOv8
-model = YOLO("./brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
-imagePath = "./brainTumorDetection/API/Tr-pi_0015.jpg"
+# model = YOLO("./brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
+# imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
 
 class PredictionResult(BaseModel):
     label: str
@@ -45,7 +45,6 @@ class PredictionResult(BaseModel):
     bbox: list
 
 # @app.get("/predict", response_model=dict) #tester directement avec une image dans le project
-
 @app.post("/predict", response_model=dict)
 async def predict(file: UploadFile = File(...)):
     # Charger l'image directement depuis le chemin
