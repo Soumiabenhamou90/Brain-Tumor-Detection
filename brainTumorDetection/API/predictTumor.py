@@ -17,7 +17,7 @@ model = {}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Load the ML model
-    model["predict"]  = YOLO("./brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
+    model["predict"]  = YOLO("./API/best.pt")
     yield
     # Clean up the ML models and release the resources
     model.clear()
