@@ -17,7 +17,7 @@ model = {}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Load the ML model
-    model["predict"]  = YOLO("./API/best.pt")
+    model["predict"]  = YOLO("./brainTumorDetection/API/best.pt")
     yield
     # Clean up the ML models and release the resources
     model.clear()
@@ -37,7 +37,7 @@ app.add_middleware(
 
 # Charger le modèle YOLOv8
 # model = YOLO("./brainTumorDetection/ml_logic/models/YOLO100epoch/best100epoch.pt")
-# imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/Tr-pi_0015.jpg"
+# imagePath = "/home/conte/code/Soumiabenhamou90/Brain-Tumor-Detection/brainTumorDetection/API/doumbouyappp-removebg.png"
 
 class PredictionResult(BaseModel):
     label: str
@@ -46,6 +46,7 @@ class PredictionResult(BaseModel):
 
 # @app.get("/predict", response_model=dict) #tester directement avec une image dans le project
 @app.post("/predict", response_model=dict)
+# async def predict():
 async def predict(file: UploadFile = File(...)):
     # Charger l'image directement depuis le chemin
     # image = Image.open(imagePath).convert("RGB")
